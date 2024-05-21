@@ -1,6 +1,10 @@
 export class publicKeyRing {
-    name: string ='';
+
+    _id: string = '';
+    bitsize: number = 0;
     email: string ='';
-    algorithm: string ='';
-    keyId: number = 0;
+    key_id: string = '';
+    name: string ='';
+    public_key: string ='';
+    timestamp: { $date: string } | string = '';
 }
