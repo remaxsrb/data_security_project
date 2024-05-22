@@ -67,14 +67,12 @@ def export_keys():
 
 @keys_blueprint.route('/import', methods=['POST'])
 def import_keys():
-    file = None
     data = request.form.get('data')
     data = json.loads(data)
-    if 'private_key' in request.files:
-        file = request.files['private_key']
+    file = request.files['key']
+    if data['type'] == 'private':
         keys_service.import_private_key(file, data)
-    elif 'public_key' in request.files:
-        file = request.files['public_key']
+    elif data['type'] == 'public':
         keys_service.import_public_key(file, data)
     else:
         return jsonify({"error": "bad request"}), 400

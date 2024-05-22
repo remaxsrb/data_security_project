@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from controllers.keys import keys_blueprint
 from controllers.message import message_blueprint
 from dotenv import load_dotenv
@@ -8,6 +9,8 @@ from db.mongo import init_db
 load_dotenv()
 
 app = Flask(__name__)
+
+CORS(app)
 
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 
