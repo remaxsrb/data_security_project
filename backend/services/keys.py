@@ -96,7 +96,7 @@ class KeysService:
         response = mongo.db.public.find_one({"_id": ObjectId(data['id'])})
 
         key = RSA.import_key(response['public_key']).export_key()
-        print(key)
+
         with open(data['filename'], 'wb') as pem_file:
             pem_file.write(key)
         return send_from_directory('./', data['filename'], as_attachment=True)
