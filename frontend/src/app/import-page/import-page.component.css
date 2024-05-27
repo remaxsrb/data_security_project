@@ -1,0 +1,8 @@
+.centered-radio-buttons {
+    display: flex;
+    justify-content: center;
+}
+.radio-group {
+    display: flex;
+    gap: 20px;
+}

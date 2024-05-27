@@ -10,8 +10,8 @@
   <div class="container text-center" role="group" aria-label="Basic example">
     <button (click)="showNewPromt()" type="button" class="btn btn-dark">New</button>
     <button (click)="onDelete()"type="button" class="btn btn-dark">Delete</button>
-    <button (click)="showUpload()"type="button" class="btn btn-dark">Import</button>
-    <button type="button" class="btn btn-dark">Export</button>
+    <button (click)="onImport()"type="button" class="btn btn-dark">Import</button>
+    <button (click)="onExport()" type="button" class="btn btn-dark">Export</button>
     <button type="button" class="btn btn-dark">Send</button>
     <button type="button" class="btn btn-dark">Recieve</button>
   </div>
@@ -55,18 +55,6 @@
           </div>
           <button type="submit" class="btn btn-dark" [disabled]="!userForm.form.valid">Submit</button>
         </form>
-      </div>
-    </div>
-  </div>
-
- 
-  <div class="container d-flex justify-content-center">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="input-group mb-3" *ngIf="isUploadVisible">
-          <input type="file" class="form-control" id="inputGroupFile02">
-          <label class="input-group-text" for="inputGroupFile02">Upload</label>
-        </div>
       </div>
     </div>
   </div>

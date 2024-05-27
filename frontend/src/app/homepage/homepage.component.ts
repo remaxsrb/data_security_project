@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { privateKeyRing } from '../models/privateKeyRing';
 import { publicKeyRing } from '../models/publicKeyRing';
 import { KeyRingService } from '../services/key-ring.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -11,11 +12,11 @@ import { KeyRingService } from '../services/key-ring.service';
 export class HomepageComponent implements OnInit{
 
 
-  constructor(private service: KeyRingService) {}
+  constructor(private service: KeyRingService, private router: Router) {}
 
   isNewFormVisible = false;
   isUploadVisible = false;
-  selectedFile = false;
+  
 
   publicKeyRingData: publicKeyRing[] = [];
   privateKeyRingData: privateKeyRing[] = [];
@@ -73,9 +74,6 @@ export class HomepageComponent implements OnInit{
       this.toDelete.push(value);
     else
     this.toDelete = this.toDelete.filter(key => key !== value);
-
-
-    alert(this.toDelete);
   }
     
   
@@ -89,14 +87,13 @@ export class HomepageComponent implements OnInit{
     }
   }
 
-  showUpload() {
-    this.isUploadVisible = true;
-    this.isNewFormVisible = false;
+  onImport() {
+    this.router.navigate(['import']);
 
   }
 
-  onUpload() {
-    this.isUploadVisible = false;
+  onExport() {
+    this.router.navigate(['export']);
   }
 
 }

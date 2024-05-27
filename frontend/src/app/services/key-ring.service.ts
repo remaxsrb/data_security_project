@@ -36,4 +36,33 @@ export class KeyRingService {
   deleteKeyPair(key_id:string) {
     return this.http.delete<number>(`${this.backendUrl}/delete/${key_id}`);
   }
+
+  exportKey(type: string, id:string, filename:string, password: string) {
+
+    const data = {
+      type: type,
+      id: id,
+      password: password,
+      filename: filename
+    };
+
+    return this.http.post<number>(`${this.backendUrl}/export`, data);
+
+  }
+
+  importKey(type: string, key:string, password:string, name: string, email: string) {
+
+    const data = {
+      type: type,
+      key: key,
+      password: password,
+      name: name,
+      email: email
+    };
+
+
+    return this.http.post<any>(`${this.backendUrl}/import`, data);
+
+  }
+
 }

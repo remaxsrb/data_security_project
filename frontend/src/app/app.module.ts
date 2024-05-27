@@ -8,11 +8,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ExportPageComponent } from './export-page/export-page.component';
+import { ImportPageComponent } from './import-page/import-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomepageComponent
+    HomepageComponent,
+    ExportPageComponent,
+    ImportPageComponent
   ],
   imports: [
     BrowserModule,

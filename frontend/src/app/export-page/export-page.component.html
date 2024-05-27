@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Export key</h1>
+    </div>
+
+    <div class="container centered-radio-buttons">
+        <div class="radio-group">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="public" [(ngModel)]="keyType" (change)="onRadioKeyTypeChange($event)" value="public" checked>
+                <label class="form-check-label" for="public">
+                    Public key
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="private" [(ngModel)]="keyType" (change)="onRadioKeyTypeChange($event)" value="private">
+                <label class="form-check-label" for="private">
+                    Private key 
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4" *ngIf="showPublicKeyRing">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Key ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of publicKeyRingData; let i = index">
+                    <td>
+                        <input type="radio" name="selectedKey" [value]="item.key_id" [(ngModel)]="selectedKeyId" (change)="onRadioKeyChoiceChange($event)">
+                    </td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>{{ item.key_id }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="container mt-4 text-center">
+            <form (ngSubmit)="onExport()" #form="ngForm">
+              <div class="form-group">
+                <label for="textInput">File name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="textInput"
+                  name="textInput"
+                  [(ngModel)]="exportData.filename"
+                  required
+                  #textInputModel="ngModel"
+                />
+                <div *ngIf="textInputModel.invalid && (textInputModel.dirty || textInputModel.touched)" class="text-danger">
+                  This field is required.
+                </div>
+              </div>
+              <button type="button" class="btn btn-dark ">Export</button>
+            </form>
+          </div> 
+    </div>
+
+    <div class="container mt-4" *ngIf="showPrivateKeyRing">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Key ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of privateKeyRingData; let i = index">
+                    <td>
+                        <input type="radio" name="selectedKey" [value]="item.key_id" [(ngModel)]="selectedKeyId" (change)="onRadioKeyChoiceChange($event)">
+                    </td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>{{ item.key_id }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="container mt-4 text-center">
+            <form (ngSubmit)="onExport()" #form="ngForm">
+              <div class="form-group">
+                <label for="textInput">File name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="textInput"
+                  name="textInput"
+                  [(ngModel)]="exportData.filename"
+                  required
+                  #textInputModel="ngModel"
+                />
+                <div *ngIf="textInputModel.invalid && (textInputModel.dirty || textInputModel.touched)" class="text-danger">
+                  This field is required.
+                </div>
+              </div>
+              <button type="button" (click)="onExport()" class="btn btn-dark ">Export</button>
+            </form>
+          </div> 
+    </div>
+
+
+
+</body>
+</html>
