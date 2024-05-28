@@ -10,13 +10,17 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ExportPageComponent } from './export-page/export-page.component';
 import { ImportPageComponent } from './import-page/import-page.component';
+import { SendMessageComponent } from './send-message/send-message.component';
+import { RecieveMessageComponent } from './recieve-message/recieve-message.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
     ExportPageComponent,
-    ImportPageComponent
+    ImportPageComponent,
+    SendMessageComponent,
+    RecieveMessageComponent
   ],
   imports: [
     BrowserModule,

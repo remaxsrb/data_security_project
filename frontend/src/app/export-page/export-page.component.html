@@ -38,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of publicKeyRingData; let i = index">
+                <tr *ngFor="let item of publicKeyRing; let i = index">
                     <td>
                         <input type="radio" name="selectedKey" [value]="item.key_id" [(ngModel)]="selectedKeyId" (change)="onRadioKeyChoiceChange($event)">
                     </td>
@@ -81,7 +81,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of privateKeyRingData; let i = index">
+                <tr *ngFor="let item of privateKeyRing; let i = index">
                     <td>
                         <input type="radio" name="selectedKey" [value]="item.key_id" [(ngModel)]="selectedKeyId" (change)="onRadioKeyChoiceChange($event)">
                     </td>

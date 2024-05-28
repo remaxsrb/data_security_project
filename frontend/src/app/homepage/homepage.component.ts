@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { privateKeyRing } from '../models/privateKeyRing';
-import { publicKeyRing } from '../models/publicKeyRing';
+import { privateKey } from '../models/privateKey';
+import { publicKey } from '../models/publicKey';
 import { KeyRingService } from '../services/key-ring.service';
 import { Router } from '@angular/router';
 
@@ -18,8 +18,8 @@ export class HomepageComponent implements OnInit{
   isUploadVisible = false;
   
 
-  publicKeyRingData: publicKeyRing[] = [];
-  privateKeyRingData: privateKeyRing[] = [];
+  publicKeyRing: publicKey[] = [];
+  privateKeyRing: privateKey[] = [];
 
   checkboxStates: boolean[] = [];
 
@@ -33,17 +33,17 @@ export class HomepageComponent implements OnInit{
     this.service.getAllPrivateKeys().subscribe(
       data => {
         
-        this.privateKeyRingData = data
+        this.privateKeyRing = data
       }
     )
 
     this.service.getAllPublicKeys().subscribe(
       data => {
-        this.publicKeyRingData = data
+        this.publicKeyRing = data
       }
     )
 
-    this.checkboxStates = new Array(this.privateKeyRingData.length).fill(false);
+    this.checkboxStates = new Array(this.privateKeyRing.length).fill(false);
 
   }
 
@@ -94,6 +94,16 @@ export class HomepageComponent implements OnInit{
 
   onExport() {
     this.router.navigate(['export']);
+  }
+
+  onSend() {
+    this.router.navigate(['send']);
+
+  }
+
+  onReceieve() {
+    this.router.navigate(['recieve']);
+
   }
 
 }

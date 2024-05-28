@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { privateKeyRing } from '../models/privateKeyRing';
-import { publicKeyRing } from '../models/publicKeyRing';
+import { privateKey } from '../models/privateKey';
+import { publicKey } from '../models/publicKey';
 import { KeyRingService } from '../services/key-ring.service';
 
 @Component({
@@ -13,8 +13,8 @@ export class ImportPageComponent implements OnInit {
 
   constructor(private service: KeyRingService, private router: Router) {}
 
-  publicKeyRingData: publicKeyRing[] = [];
-  privateKeyRingData: privateKeyRing[] = [];
+  publicKeyRing: publicKey[] = [];
+  privateKeyRing: privateKey[] = [];
 
   keyType: string = '';
 
@@ -29,13 +29,13 @@ export class ImportPageComponent implements OnInit {
     this.service.getAllPrivateKeys().subscribe(
       data => {
         
-        this.privateKeyRingData = data
+        this.privateKeyRing = data
       }
     )
 
     this.service.getAllPublicKeys().subscribe(
       data => {
-        this.publicKeyRingData = data
+        this.publicKeyRing = data
       }
     )
       
@@ -68,8 +68,8 @@ export class ImportPageComponent implements OnInit {
 
     ).subscribe(
       data => {
-        this.privateKeyRingData = data[0];
-        this.publicKeyRingData = data[1];
+        this.privateKeyRing = data[0];
+        this.publicKeyRing = data[1];
       }
     )
 

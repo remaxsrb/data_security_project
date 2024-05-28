@@ -66,7 +66,7 @@ class MessageService:
         algorithm = ''
         encryption_key_id = ''
         sign_key_id = ''
-        if 'encryption_key_id' in data:
+        if 'encryption' in data:
             headers += b'Encryption-key-id: ' + str(data['encryption_key_id']).encode('utf-8') + b'\n'
             headers += b'Encrypted: ' + str(data['encryption']).encode('utf-8') + b'\n'
             encryption_key_id = data['encryption_key_id']

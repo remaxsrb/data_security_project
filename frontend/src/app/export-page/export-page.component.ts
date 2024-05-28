@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeyRingService } from '../services/key-ring.service';
-import { privateKeyRing } from '../models/privateKeyRing';
-import { publicKeyRing } from '../models/publicKeyRing';
+import { privateKey } from '../models/privateKey';
+import { publicKey } from '../models/publicKey';
 
 @Component({
   selector: 'app-export-page',
@@ -13,8 +13,8 @@ export class ExportPageComponent implements OnInit {
 
   constructor(private service: KeyRingService, private router: Router) {}
 
-  publicKeyRingData: publicKeyRing[] = [];
-  privateKeyRingData: privateKeyRing[] = [];
+  publicKeyRing: publicKey[] = [];
+  privateKeyRing: privateKey[] = [];
 
   keyType: string = '';
 
@@ -33,13 +33,13 @@ export class ExportPageComponent implements OnInit {
     this.service.getAllPrivateKeys().subscribe(
       data => {
         
-        this.privateKeyRingData = data
+        this.privateKeyRing = data
       }
     )
 
     this.service.getAllPublicKeys().subscribe(
       data => {
-        this.publicKeyRingData = data
+        this.publicKeyRing = data
       }
     )
       
@@ -68,7 +68,7 @@ export class ExportPageComponent implements OnInit {
     
 
     if (this.keyType === 'public') {
-      this.keyToExport = this.publicKeyRingData.filter(key => key.key_id === this.selectedKeyId);
+      this.keyToExport = this.publicKeyRing.filter(key => key.key_id === this.selectedKeyId);
 
       this.exportData.type = 'public';
       this.exportData.id = this.keyToExport._id;
@@ -78,7 +78,7 @@ export class ExportPageComponent implements OnInit {
     
 
     if (this.keyType === 'private') {
-      this.keyToExport = this.privateKeyRingData.filter(key => key.key_id === this.selectedKeyId);
+      this.keyToExport = this.privateKeyRing.filter(key => key.key_id === this.selectedKeyId);
 
       this.exportData.type = 'private';
       this.exportData.id = this.keyToExport._id;

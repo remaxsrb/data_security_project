@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { privateKeyRing } from '../models/privateKeyRing';
-import { publicKeyRing } from '../models/publicKeyRing';
+import { privateKey } from '../models/privateKey';
+import { publicKey } from '../models/publicKey';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -13,11 +13,11 @@ export class KeyRingService {
   backendUrl = "http://127.0.0.1:5000/keys"
 
   getAllPublicKeys() {
-    return this.http.get<publicKeyRing[]>(`${this.backendUrl}/public`);
+    return this.http.get<publicKey[]>(`${this.backendUrl}/public`);
   }
 
   getAllPrivateKeys() {
-    return this.http.get<privateKeyRing[]>(`${this.backendUrl}/private`);
+    return this.http.get<privateKey[]>(`${this.backendUrl}/private`);
   }
 
   createKeyPair(name: string, email:string, password:string, bitsize: number) {

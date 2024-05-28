@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="input-group mb-3" *ngIf="fileUploaded === false">
+      <input
+        type="file"
+        class="form-control"
+        id="inputGroupFile02"
+        (change)="onFileSelected($event)"
+      />
+      <label class="input-group-text" for="inputGroupFile02">Upload</label>
+    </div>
+
+    <div class="container mt-5">
+      <!-- First Row -->
+      <div class="row mb-3">
+        <div class="col">
+          <label for="largeTextarea" class="form-label">Message</label>
+          <textarea class="form-control" rows="5" placeholder=""></textarea>
+        </div>
+      </div>
+
+      <!-- Second Row -->
+      <div class="row">
+        <!-- First Column with Checkboxes -->
+        <div class="col-md-6">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="encrypt"
+              [(ngModel)]="isEncrypted"
+            />
+            <label class="form-check-label" for="encrypt">Encrypt</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="sign"
+              [(ngModel)]="isSigned"
+            />
+            <label class="form-check-label" for="sign">Sign</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="compress"
+              [(ngModel)]="isCompressed"
+            />
+            <label class="form-check-label" for="compress">Compress</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="encode"
+              [(ngModel)]="isEncoded"
+            />
+            <label class="form-check-label" for="encode">Encode radix 64</label>
+          </div>
+        </div>
+
+        <!-- Second Column with Text Areas -->
+        <div class="col-md-6">
+          <label for="encription_key">Encription Key</label>
+          <textarea
+            id="encription_key"
+            class="form-control mb-2"
+            rows="1"
+            placeholder=""
+            [(ngModel)]="encriptionKey"
+          ></textarea>
+
+          <label for="algorithm">Algorithm</label>
+          <textarea
+            id="algorithm"
+            class="form-control mb-2"
+            rows="1"
+            placeholder=""
+            [(ngModel)]="encriptionAlgorithm"
+          ></textarea>
+
+          <label for="signingkey">Signing key </label>
+          <textarea
+            id="signingkey"
+            class="form-control mb-2"
+            rows="1"
+            placeholder=""
+            [(ngModel)]="signingKey"
+          ></textarea>
+
+          <label for="timestamp">Timestamp </label>
+          <textarea
+            id="timestamp"
+            class="form-control mb-2"
+            rows="1"
+            placeholder=""
+            [(ngModel)]="timestamp"
+          ></textarea>
+
+          <label for="status">Status</label>
+          <textarea
+            id="status"
+            class="form-control"
+            rows="1"
+            placeholder=""
+            [(ngModel)]="status"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

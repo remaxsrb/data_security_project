@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Send Message</title>
+  </head>
+  <body>
+    <div class="container mt-5 text-center">
+      <form (ngSubmit)="onSend()" #form="ngForm">
+        <!-- Top row with large text input -->
+        <div class="mb-3">
+          <label for="largeTextarea" class="form-label">Message</label>
+          <textarea
+            class="form-control large-input"
+            id="largeTextarea"
+            rows="5"
+            placeholder=""
+            [(ngModel)]="message"
+          ></textarea>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="encrypt"
+                [(ngModel)]="isEncrypted"
+              />
+              <label class="form-check-label" for="encrypt">Encrypt</label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="sign"
+                [(ngModel)]="isSigned"
+              />
+              <label class="form-check-label" for="sign">Sign</label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="compress"
+                [(ngModel)]="isCompressed"
+              />
+              <label class="form-check-label" for="compress">Compress</label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="encode"
+                [(ngModel)]="isEncoded"
+              />
+              <label class="form-check-label" for="encode"
+                >Encode radix 64</label
+              >
+            </div>
+          </div>
+
+          <!-- Second column with select menus and text input -->
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="selectMenu1" class="form-label">Encryption key</label>
+              <select
+                class="form-select"
+                id="selectMenu1"
+                [(ngModel)]="encriptionKey"
+              >
+                <option value="" disabled selected>Select an option</option>
+                <option *ngFor="let row of publicKeyRing">
+                  {{ row.email }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="selectMenu2" class="form-label"
+                >Encryption algorithm</label
+              >
+              <select
+                class="form-select"
+                id="selectMenu2"
+                [(ngModel)]="encriptionAlgorithm"
+              >
+                <option selected>Select an option</option>
+                <option value="1">AES128</option>
+                <option value="2">CAST5</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="selectMenu3" class="form-label">Signing key</label>
+              <select
+                class="form-select"
+                id="selectMenu1"
+                [(ngModel)]="signingKey"
+              >
+                <option value="" disabled selected>Select an option</option>
+                <option *ngFor="let row of privateKeyRing">
+                  {{ row.email }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="textInput" class="form-label">Password</label>
+              <input
+                type="text"
+                class="form-control"
+                id="textInput"
+                placeholder=""
+                [(ngModel)]="signingPassword"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-center">
+            <button type="submit" class="btn btn-dark">Send</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
