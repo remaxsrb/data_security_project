@@ -108,6 +108,17 @@
                   This field is required.
                 </div>
               </div>
+              <div class="form-group" *ngIf="">
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  required
+                  [(ngModel)]="exportData.password"
+                  name="password"
+                />
+              </div>
               <button type="submit"  class="btn btn-dark ">Export</button>
             </form>
           </div> 

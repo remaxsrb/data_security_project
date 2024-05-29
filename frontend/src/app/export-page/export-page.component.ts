@@ -81,7 +81,6 @@ export class ExportPageComponent implements OnInit {
 
       this.exportData.type = 'private';
       this.exportData.id = this.keyToExport[0]._id;
-      this.exportData.password = this.keyToExport[0].password;
 
     }
 
