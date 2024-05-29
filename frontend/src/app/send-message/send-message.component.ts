@@ -53,19 +53,20 @@ export class SendMessageComponent implements OnInit {
   onSend() {
 
 
-    if (this.isEncrypted) {
+    if (this.isEncrypted===true) {
       this.encriptionKey = this.publicKeyRing.filter(key => key.email === this.encriptionKey)[0].key_id;
 
-      if (this.isSigned) {
+
+      if (this.isSigned===true) {
 
         this.signingKey = this.privateKeyRing.filter(key => key.email === this.signingKey)[0].key_id;
 
-        this.messagingService.sendEncriptedSignedMessage(this.message, this.isEncrypted, this.encriptionKey, this.encriptionAlgorithm, this.isSigned, this.signingKey , this.signingPassword,this.isCompressed, this.isEncoded);
+        this.messagingService.sendEncriptedSignedMessage(this.message, this.isEncrypted, this.encriptionKey, this.encriptionAlgorithm, this.isSigned, this.signingKey , this.signingPassword,this.isCompressed, this.isEncoded).subscribe();
 
       }
       else {
 
-        this.messagingService.sendEncriptedMessage(this.message, this.isEncrypted, this.encriptionKey, this.encriptionAlgorithm, this.isSigned, this.isCompressed, this.isEncoded);
+        this.messagingService.sendEncriptedMessage(this.message, this.isEncrypted, this.encriptionKey, this.encriptionAlgorithm, this.isSigned, this.signingPassword, this.isCompressed, this.isEncoded).subscribe();
 
 
       }
@@ -73,7 +74,11 @@ export class SendMessageComponent implements OnInit {
     }
 
     else {
-      this.messagingService.sendPlainMessage(this.message, this.isEncrypted, this.isSigned, this.isCompressed, this.isEncoded);
+      this.isSigned = false;
+      this.isCompressed = false;
+      this.isEncoded = false;
+
+      this.messagingService.sendPlainMessage(this.message, this.isEncrypted, this.isSigned, this.isCompressed, this.isEncoded).subscribe();
     }
   }
 

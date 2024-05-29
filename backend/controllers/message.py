@@ -19,10 +19,9 @@ def send_message():
 
 @message_blueprint.route('/receive', methods=['POST'])
 def receive_message():
+
     file = request.files['message']
-    data = request.form.get('data')
-    data = json.loads(data)
-    password = data['password']
+    password = request.form.get('password')
     response = message_service.receive_message(file, password)
 
     return jsonify(response), 200

@@ -67,8 +67,13 @@ def export_keys():
 
 @keys_blueprint.route('/import', methods=['POST'])
 def import_keys():
-    data = request.form.get('data')
-    data = json.loads(data)
+    data = {
+        'type': request.form.get('type'),
+        'password': request.form.get('password'),
+        'name': request.form.get('name'),
+        'email': request.form.get('email')
+    }
+
     file = request.files['key']
     if data['type'] == 'private':
         keys_service.import_private_key(file, data)

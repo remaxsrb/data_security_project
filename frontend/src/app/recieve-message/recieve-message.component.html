@@ -6,18 +6,47 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="input-group mb-3" *ngIf="fileUploaded === false">
-      <input
-        type="file"
-        class="form-control"
-        id="inputGroupFile02"
-        (change)="onFileSelected($event)"
-      />
-      <label class="input-group-text" for="inputGroupFile02">Upload</label>
+    <div class="container text-center">
+      <h1>Receive Message </h1>
+  </div>
+  <div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body text-center">
+            <h5 class="card-title">File Upload Form</h5>
+            <form (ngSubmit)="onUpload()" #fileUploadForm="ngForm">
+              <div class="input-group mb-3">
+                <input
+                  type="file"
+                  class="form-control"
+                  id="inputGroupFile02"
+                  required
+                  (change)="onFileSelected($event)"
+                />
+                <label class="input-group-text" for="inputGroupFile02">Upload</label>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  required
+                  [(ngModel)]="password"
+                  name="password"
+                  placeholder="Only if message is encrypted"
+                />
+              </div>
+              <button type="submit" class="btn btn-dark" [disabled]="!fileUploaded">Upload</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="container mt-5">
-      <!-- First Row -->
+    <div class="container mt-5" *ngIf="fileUploaded">
       <div class="row mb-3">
         <div class="col">
           <label for="largeTextarea" class="form-label">Message</label>
@@ -25,9 +54,7 @@
         </div>
       </div>
 
-      <!-- Second Row -->
       <div class="row">
-        <!-- First Column with Checkboxes -->
         <div class="col-md-6">
           <div class="form-check">
             <input

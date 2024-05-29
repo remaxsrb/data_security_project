@@ -6,9 +6,11 @@
     <title>Send Message</title>
   </head>
   <body>
+    <div class="container text-center">
+      <h1>Send Message </h1>
+  </div>
     <div class="container mt-5 text-center">
       <form (ngSubmit)="onSend()" #form="ngForm">
-        <!-- Top row with large text input -->
         <div class="mb-3">
           <label for="largeTextarea" class="form-label">Message</label>
           <textarea
@@ -17,9 +19,11 @@
             rows="5"
             placeholder=""
             [(ngModel)]="message"
+            name="message"
+            required
           ></textarea>
         </div>
-
+    
         <div class="row">
           <div class="col-md-6">
             <div class="form-check">
@@ -28,6 +32,7 @@
                 type="checkbox"
                 id="encrypt"
                 [(ngModel)]="isEncrypted"
+                name="isEncrypted"
               />
               <label class="form-check-label" for="encrypt">Encrypt</label>
             </div>
@@ -37,6 +42,7 @@
                 type="checkbox"
                 id="sign"
                 [(ngModel)]="isSigned"
+                name="isSigned"
               />
               <label class="form-check-label" for="sign">Sign</label>
             </div>
@@ -46,6 +52,7 @@
                 type="checkbox"
                 id="compress"
                 [(ngModel)]="isCompressed"
+                name="isCompressed"
               />
               <label class="form-check-label" for="compress">Compress</label>
             </div>
@@ -55,14 +62,11 @@
                 type="checkbox"
                 id="encode"
                 [(ngModel)]="isEncoded"
+                name="isEncoded"
               />
-              <label class="form-check-label" for="encode"
-                >Encode radix 64</label
-              >
+              <label class="form-check-label" for="encode">Encode radix 64</label>
             </div>
           </div>
-
-          <!-- Second column with select menus and text input -->
           <div class="col-md-6">
             <div class="mb-3">
               <label for="selectMenu1" class="form-label">Encryption key</label>
@@ -70,36 +74,37 @@
                 class="form-select"
                 id="selectMenu1"
                 [(ngModel)]="encriptionKey"
+                name="encriptionKey"
               >
                 <option value="" disabled selected>Select an option</option>
-                <option *ngFor="let row of publicKeyRing">
+                <option *ngFor="let row of publicKeyRing" [value]="row.email">
                   {{ row.email }}
                 </option>
               </select>
             </div>
             <div class="mb-3">
-              <label for="selectMenu2" class="form-label"
-                >Encryption algorithm</label
-              >
+              <label for="selectMenu2" class="form-label">Encryption algorithm</label>
               <select
                 class="form-select"
                 id="selectMenu2"
                 [(ngModel)]="encriptionAlgorithm"
+                name="encriptionAlgorithm"
               >
-                <option selected>Select an option</option>
-                <option value="1">AES128</option>
-                <option value="2">CAST5</option>
+                <option value="" disabled selected>Select an option</option>
+                <option value="AES128">AES128</option>
+                <option value="CAST5">CAST5</option>
               </select>
             </div>
             <div class="mb-3">
               <label for="selectMenu3" class="form-label">Signing key</label>
               <select
                 class="form-select"
-                id="selectMenu1"
+                id="selectMenu3"
                 [(ngModel)]="signingKey"
+                name="signingKey"
               >
                 <option value="" disabled selected>Select an option</option>
-                <option *ngFor="let row of privateKeyRing">
+                <option *ngFor="let row of privateKeyRing" [value]="row.email">
                   {{ row.email }}
                 </option>
               </select>
@@ -112,6 +117,7 @@
                 id="textInput"
                 placeholder=""
                 [(ngModel)]="signingPassword"
+                name="signingPassword"
               />
             </div>
           </div>

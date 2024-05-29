@@ -58,7 +58,6 @@ export class HomepageComponent implements OnInit{
 
     this.service.createKeyPair(this.newData.name,  this.newData.email,  this.newData.password, this.newData.bitsize).subscribe(
       data => {
-        alert("Created KeyPair with id: " + data);
       }
 
     );

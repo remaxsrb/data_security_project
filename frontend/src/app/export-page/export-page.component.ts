@@ -61,17 +61,16 @@ export class ExportPageComponent implements OnInit {
 
   onRadioKeyChoiceChange(event: any) {
 
+
   }
 
   onExport() {
-
-    
 
     if (this.keyType === 'public') {
       this.keyToExport = this.publicKeyRing.filter(key => key.key_id === this.selectedKeyId);
 
       this.exportData.type = 'public';
-      this.exportData.id = this.keyToExport._id;
+      this.exportData.id = this.keyToExport[0]._id;
   
     }
 
@@ -81,8 +80,8 @@ export class ExportPageComponent implements OnInit {
       this.keyToExport = this.privateKeyRing.filter(key => key.key_id === this.selectedKeyId);
 
       this.exportData.type = 'private';
-      this.exportData.id = this.keyToExport._id;
-      this.exportData.password = this.keyToExport.password;
+      this.exportData.id = this.keyToExport[0]._id;
+      this.exportData.password = this.keyToExport[0].password;
 
     }
 

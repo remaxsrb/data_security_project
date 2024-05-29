@@ -16,12 +16,12 @@ export class ImportPageComponent implements OnInit {
   publicKeyRing: publicKey[] = [];
   privateKeyRing: privateKey[] = [];
 
-  keyType: string = '';
 
   showPublicKeyRing: boolean = false;
   showPrivateKeyRing: boolean = false;
 
-  importData = {type: '', key: '', password: '', name: '', email: ''}; 
+  importData = {type: '', password: '', name: '', email: ''}; 
+  importedFile: any = null;
 
 
   ngOnInit(): void {
@@ -43,28 +43,29 @@ export class ImportPageComponent implements OnInit {
 
   onRadioKeyTypeChange(event: any) {
     
-    if (this.keyType === 'public') {
+    if (this.importData.type === 'public') {
       this.showPrivateKeyRing = false;
       this.showPublicKeyRing = true;
     }
 
-    if (this.keyType === 'private') {
+    if (this.importData.type === 'private') {
       this.showPrivateKeyRing = true;
       this.showPublicKeyRing = false;
     }
     
+
   }
 
 
   onFileSelected(event: any) {
 
     const file: File = event.target.files[0];
-    this.importData.key = file.name;
+    this.importedFile = file;
   }
 
   onImport() {
 
-    this.service.importKey(this.importData.type, this.importData.key, this.importData.password, this.importData.name, this.importData.email
+    this.service.importKey(this.importData.type, this.importedFile, this.importData.password, this.importData.name, this.importData.email
 
     ).subscribe(
       data => {

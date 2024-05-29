@@ -29,7 +29,7 @@ export class KeyRingService {
       password: password
     };
 
-    return this.http.post<number>(`${this.backendUrl}/create`, data);
+    return this.http.post<any>(`${this.backendUrl}/create`, data);
 
   }
 
@@ -38,6 +38,7 @@ export class KeyRingService {
   }
 
   exportKey(type: string, id:string, filename:string, password: string) {
+
 
     const data = {
       type: type,
@@ -50,18 +51,26 @@ export class KeyRingService {
 
   }
 
-  importKey(type: string, key:string, password:string, name: string, email: string) {
+  importKey(type: string, file:File, password:string, name: string, email: string) {
 
-    const data = {
-      type: type,
-      key: key,
-      password: password,
-      name: name,
-      email: email
-    };
+    const formData: FormData = new FormData();
+    formData.append('type', type);
+    formData.append('password', password);
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('key', file, file.name);
 
+    const data = JSON.stringify(formData);
 
-    return this.http.post<any>(`${this.backendUrl}/import`, data);
+    // const data = {
+    //   type: type,
+    //   key: key,
+    //   password: password,
+    //   name: name,
+    //   email: email
+    // };
+
+    return this.http.post<any>(`${this.backendUrl}/import`, formData);
 
   }
 
