@@ -104,6 +104,12 @@ class KeysService:
     def import_private_key(self, file, data):
         key_data = file.read()
         key = RSA.import_key(key_data, data['password'])
+        key_id = hex(key.n)[-16:]
+        bitsize = key.size_in_bits()
+        response = mongo.db.private.find_one({"key_id": key_id})
+        if response != None:
+            return "key already exists"
+
         private_key_str, tag, salt, nonce  = encrypt_private_key(key.export_key(), data['password'])  # Convert bytes to string for easier storage
         public_key = key.publickey().export_key()
         public_key_str = public_key.decode('utf-8')
@@ -111,10 +117,10 @@ class KeysService:
         private_key = {
             'name': data['name'],
             'email': data['email'],
-            'bitsize': 0,
+            'bitsize': bitsize,
             'public_key': public_key_str,
             'timestamp': datetime.datetime.now(),
-            'key_id': hex(key.n)[-16:],
+            'key_id': key_id,
             'password': hash_password(data['password']),
             'private_key': private_key_str,
             'tag': tag,
@@ -127,15 +133,21 @@ class KeysService:
     def import_public_key(self, file, data):
         key_data = file.read()
         rsa_key = RSA.import_key(key_data)
+        key_id = hex(rsa_key.n)[-16:]
+        bitsize = rsa_key.size_in_bits()
+        response = mongo.db.public.find_one({"key_id": key_id})
+        if response != None:
+            return "key already exists"
+
         public_key_str = rsa_key.publickey().export_key().decode('utf-8')
 
         public_key = {
             'name': data['name'],
             'email': data['email'],
-            'bitsize': 0,
+            'bitsize': bitsize,
             'public_key': public_key_str,
             'timestamp': datetime.datetime.now(),
-            'key_id': hex(rsa_key.n)[-16:]
+            'key_id': key_id
         }
 
         public_key_result = mongo.db.public.insert_one(public_key)

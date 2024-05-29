@@ -116,7 +116,7 @@ class MessageService:
             message, signing_key_id = self._verify_signature(message)
             signed = True
 
-        message = self._get_original_message(message)
+        message, timestamp = self._get_original_message(message)
 
         return {
                     "message": message.decode('utf-8'),
@@ -126,7 +126,8 @@ class MessageService:
                     "algorithm": algorithm,
                     "encryption_key_id": encryption_key_id,
                     "signing_key_id": signing_key_id,
-                    "radix": radix
+                    "radix": radix,
+                    "timestamp": timestamp
                }
 
     def _get_original_message(self, message):
@@ -138,7 +139,7 @@ class MessageService:
 
         message = message.readline().strip()
 
-        return message
+        return message, timestamp
 
     def _verify_signature(self, message):
         message = BytesIO(message)
@@ -180,9 +181,12 @@ class MessageService:
                 return CAST.new(session_key, CAST.MODE_EAX, nonce=nonce).decrypt(message)
 
     def _get_headers(self, file):
+        encryption_key_id = ''
+        algorithm = ''
         line = file.readline().strip()
         splited = line.split(b': ')
-        encryption_key_id = splited[1].decode('utf-8')
+        if len(splited) > 1:
+            encryption_key_id = splited[1].decode('utf-8')
 
         line = file.readline().strip()
         splited = line.split(b': ')
@@ -190,7 +194,8 @@ class MessageService:
 
         line = file.readline().strip()
         splited = line.split(b': ')
-        algorithm = splited[1].decode('utf-8')
+        if len(splited) > 1:
+            algorithm = splited[1].decode('utf-8')
 
         line = file.readline().strip()
         splited = line.split(b': ')

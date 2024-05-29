@@ -74,11 +74,13 @@ def import_keys():
         'email': request.form.get('email')
     }
 
+    message = ''
+
     file = request.files['key']
     if data['type'] == 'private':
-        keys_service.import_private_key(file, data)
+        message = keys_service.import_private_key(file, data)
     elif data['type'] == 'public':
-        keys_service.import_public_key(file, data)
+        message = keys_service.import_public_key(file, data)
     else:
         return jsonify({"error": "bad request"}), 400
 
@@ -87,7 +89,8 @@ def import_keys():
 
     response = {
         'private_keys': private_keys,
-        'public_keys': public_keys
+        'public_keys': public_keys,
+        'message': message
     }
 
     return jsonify(response), 200
